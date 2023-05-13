@@ -1,32 +1,19 @@
-import logo from './logo.svg';
+import { BrowserRouter, Routes, Route} from 'react-router-dom';
 import './App.css';
-import { useEffect, useState } from 'react';
-
+import Layout from './components/Layout';
+import ToDo from './components/to-do';
+import Home from './components/home';
 function App() {
-  const [list, setList] = useState([]); 
-  const [toDo,settoDo] = useState("Want some Cool H-Whip?");
-  useEffect(()=> {
-    setList(["stewieWorldDominationShallBeMine","eat1Donut","pleaseLetsJustGoHome"]) 
-  }, [])
-  const deletetoDo = (val) => {setList(
-
-  )};
-
   return (
-    <div className="App">
-      <h1>Hello, World!</h1>
-      <h2>Today, we will acheive...</h2>
-
-      <ul>
-        {list.map((val, id) => {return <li onClick = {
-          () => {setList(
-            list.filter((item) => {return item !== val})
-          )}
-        } key = {id}>{val}</li>}) }
-      </ul>
-      <input val = {toDo} onChange = {(e)=>{settoDo(e.target.value);}}/>
-      <button onClick = {()=>{setList([...list, toDo])}}>Add to-do</button>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout></Layout>}>
+          <Route index element={<Home/>}></Route>
+          <Route path='/todo' element={<ToDo/>}></Route>
+          <Route path='*' element={<Home/>}></Route>
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
